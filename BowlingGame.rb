@@ -1,12 +1,12 @@
 #CLASE DE BOWLING
 class BowlingGame
   def initialize
-      @Rounds = [[1, 4, 5], [4, 5, 14], [10, 0, 29 ], [0, 10, 49], [0, 0, 60], [0, 1, 61], [7, 0, 77], [6, 0, 97], [0, 0, 117], [2, 0, 6, 133]]
+    @Rounds = [[0, 0, 0], [0, 0, 0], [0, 0, 0 ], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0, 0]]
+    @contador = 1
   end
-  
+
   def draw
-    rounds = 10
-    (0..rounds-1).each do |round|
+    (0..@contador-1).each do |round|
       puts "\nRound #{round + 1} \n"
       (0..(@Rounds[round].length) - 1).each do |num|
         next if round == 9 && num == 2 && @Rounds[round][num - 1] + @Rounds[round][num - 2] != 10
@@ -16,6 +16,23 @@ class BowlingGame
     end
   end
 
+  def roll
+    while @contador <= 9 do
+      (0..@contador).each do |round|
+        score = 10
+        (0..(@Rounds[round].length) - 2).each do |num|
+          strike=rand(0..score)
+          @Rounds[round][num] = strike
+          score -= strike
+        end
+      end 
+      @contador+=1     
+    end
+  end
+  
+  def hola
+    print(@Rounds)
+  end
   def print_rounds(round,num)
     if num == @Rounds[round].length - 1
       puts
@@ -31,4 +48,6 @@ class BowlingGame
 end 
 
 game = BowlingGame.new
+game.roll
 game.draw
+game.hola
